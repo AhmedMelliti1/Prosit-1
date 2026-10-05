@@ -1,4 +1,5 @@
 public class Animal {
+
     String family;
     String name;
     int age;
@@ -13,7 +14,6 @@ public class Animal {
 
     @Override
     public String toString() {
-        return name + " (" + family + ", " + age + " ans, mammifère: " + isMammal + ")";
+        return name + " | famille: " + family + " | age: " + age + " ans | mammifere: " + isMammal;
     }
-
 }

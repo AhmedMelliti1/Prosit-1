@@ -1,9 +1,8 @@
 public class Zoo {
 
-    // Instruction 14 : constante pour le nombre maximum de cages
-    private static final int MAX_CAGES = 25;
+    static final int MAX_CAGES = 25;
 
-    private Animal[] animals;
+    Animal[] animals;
     String name;
     String city;
     private int nbrAnimals;
@@ -15,36 +14,34 @@ public class Zoo {
         this.nbrAnimals = 0;
     }
 
-    // Instruction 10 : ajouter un animal (unicité + capacité max – instruction 12)
     public boolean addAnimal(Animal animal) {
-        // Capacité maximale atteinte
         if (nbrAnimals >= MAX_CAGES) {
-            System.out.println("Le zoo est plein, impossible d'ajouter " + animal.name);
+            System.out.println("Le zoo est plein, on peut pas ajouter " + animal.name);
             return false;
         }
-        // Unicité : l'animal ne doit pas déjà être présent
+
+        // on verifie que l'animal n'est pas deja dans le zoo
         if (searchAnimal(animal) != -1) {
-            System.out.println(animal.name + " est déjà présent dans le zoo.");
+            System.out.println(animal.name + " est deja dans le zoo");
             return false;
         }
+
         animals[nbrAnimals] = animal;
         nbrAnimals++;
         return true;
     }
 
-    // Instruction 11a : afficher tous les animaux
     public void displayAnimals() {
-        System.out.println("=== Animaux du zoo " + name + " (" + nbrAnimals + "/" + MAX_CAGES + ") ===");
+        System.out.println("Animaux dans le zoo " + name + " : " + nbrAnimals + "/" + MAX_CAGES);
         if (nbrAnimals == 0) {
-            System.out.println("Le zoo est vide.");
+            System.out.println("aucun animal pour l'instant");
             return;
         }
         for (int i = 0; i < nbrAnimals; i++) {
-            System.out.println("  [" + i + "] " + animals[i]);
+            System.out.println(i + " - " + animals[i]);
         }
     }
 
-    // Instruction 11b : rechercher un animal par nom
     public int searchAnimal(Animal animal) {
         for (int i = 0; i < nbrAnimals; i++) {
             if (animals[i].name.equals(animal.name)) {
@@ -54,14 +51,14 @@ public class Zoo {
         return -1;
     }
 
-    // Instruction 13 : supprimer un animal et réorganiser le tableau
     public boolean removeAnimal(Animal animal) {
         int index = searchAnimal(animal);
         if (index == -1) {
-            System.out.println(animal.name + " n'a pas été trouvé dans le zoo.");
+            System.out.println(animal.name + " introuvable dans le zoo");
             return false;
         }
-        // Décalage des éléments pour combler le trou
+
+        // on decale tout pour pas laisser de trou dans le tableau
         for (int i = index; i < nbrAnimals - 1; i++) {
             animals[i] = animals[i + 1];
         }
@@ -70,23 +67,23 @@ public class Zoo {
         return true;
     }
 
-    // Instruction 15a : vérifier si le zoo est plein
     public boolean isFull() {
         return nbrAnimals >= MAX_CAGES;
     }
 
-    // Instruction 15b : retourner le zoo le plus peuplé entre this et autre
     public Zoo getBiggestZoo(Zoo other) {
-        return (this.nbrAnimals >= other.nbrAnimals) ? this : other;
+        if (this.nbrAnimals >= other.nbrAnimals) {
+            return this;
+        }
+        return other;
     }
 
-    // Accesseur utile pour les comparaisons
     public int getNbrAnimals() {
         return nbrAnimals;
     }
 
     @Override
     public String toString() {
-        return "Zoo " + name + " (" + city + ") – " + nbrAnimals + " animaux";
+        return name + " (" + city + ") - " + nbrAnimals + " animaux";
     }
 }
