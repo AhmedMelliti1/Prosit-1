@@ -1,3 +1,8 @@
+package main;
+
+import entities.Animal;
+import entities.Zoo;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -9,15 +14,25 @@ public class Main {
         Animal eagle = new Animal("Rapaces", "Sammy", 3, false);
         Animal snake = new Animal("Serpents", "Kaa", 7, false);
 
+        // test encapsulation : age negatif
+        System.out.println("-- test age negatif --");
+        Animal invalid = new Animal("Test", "Bug", -5, false);
+        System.out.println(invalid);
+
+        // test encapsulation : nom de zoo vide
+        System.out.println("\n-- test nom zoo vide --");
+        Zoo zooSansNom = new Zoo("", "Bordeaux");
+        System.out.println(zooSansNom);
+
         // ajout des animaux
-        System.out.println("-- ajout des animaux --");
+        System.out.println("\n-- ajout des animaux --");
         System.out.println(zoo1.addAnimal(lion));
         System.out.println(zoo1.addAnimal(tiger));
         System.out.println(zoo1.addAnimal(elephant));
         System.out.println(zoo1.addAnimal(eagle));
         System.out.println(zoo1.addAnimal(snake));
 
-        // test ajout en double (meme nom)
+        // test ajout en double
         System.out.println("\n-- test doublon --");
         Animal lionCopie = new Animal("Felins", "Simba", 5, true);
         System.out.println(zoo1.addAnimal(lionCopie));
@@ -29,7 +44,6 @@ public class Main {
         // recherche
         System.out.println("\n-- recherche --");
         System.out.println("indice de Simba : " + zoo1.searchAnimal(lion));
-        // lionCopie a le meme nom donc on trouve le meme indice
         System.out.println("indice de lionCopie : " + zoo1.searchAnimal(lionCopie));
         Animal inconnu = new Animal("?", "Rex", 1, false);
         System.out.println("indice de Rex : " + zoo1.searchAnimal(inconnu));
@@ -37,10 +51,10 @@ public class Main {
         // suppression
         System.out.println("\n-- suppression --");
         System.out.println(zoo1.removeAnimal(elephant));
-        System.out.println(zoo1.removeAnimal(inconnu)); // n'existe pas
+        System.out.println(zoo1.removeAnimal(inconnu));
         zoo1.displayAnimals();
 
-        // test capacite max avec zoo2
+        // test capacite max
         System.out.println("\n-- test capacite max --");
         Zoo zoo2 = new Zoo("Jungle World", "Lyon");
         for (int i = 1; i <= 26; i++) {
@@ -56,10 +70,9 @@ public class Main {
         System.out.println("zoo1 plein ? " + zoo1.isFull());
         System.out.println("zoo2 plein ? " + zoo2.isFull());
 
-        // comparaison de zoos
+        // comparaison
         System.out.println("\n-- comparaison --");
-        Zoo grand = zoo1.getBiggestZoo(zoo2);
-        System.out.println("le plus grand entre zoo1 et zoo2 : " + grand);
+        System.out.println("le plus grand entre zoo1 et zoo2 : " + zoo1.getBiggestZoo(zoo2));
 
         Zoo zoo3 = new Zoo("Aqua Zoo", "Marseille");
         zoo3.addAnimal(new Animal("Poissons", "Nemo", 2, false));
