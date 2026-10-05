@@ -1,28 +1,37 @@
+package entities;
+
 public class Zoo {
 
     static final int MAX_CAGES = 25;
 
-    Animal[] animals;
-    String name;
-    String city;
+    private Animal[] animals;
+    private String name;
+    private String city;
     private int nbrAnimals;
 
     public Zoo(String name, String city) {
-        this.name = name;
+        // nom de zoo vide pas autorise
+        if (name == null || name.isEmpty()) {
+            System.out.println("le nom du zoo est vide, on met 'Zoo inconnu' par defaut");
+            this.name = "Zoo inconnu";
+        } else {
+            this.name = name;
+        }
         this.city = city;
         this.animals = new Animal[MAX_CAGES];
         this.nbrAnimals = 0;
     }
 
+    // instruction 17 : addAnimal utilise isFull()
     public boolean addAnimal(Animal animal) {
-        if (nbrAnimals >= MAX_CAGES) {
-            System.out.println("Le zoo est plein, on peut pas ajouter " + animal.name);
+        if (isFull()) {
+            System.out.println("Le zoo est plein, on peut pas ajouter " + animal.getName());
             return false;
         }
 
         // on verifie que l'animal n'est pas deja dans le zoo
         if (searchAnimal(animal) != -1) {
-            System.out.println(animal.name + " est deja dans le zoo");
+            System.out.println(animal.getName() + " est deja dans le zoo");
             return false;
         }
 
@@ -44,7 +53,7 @@ public class Zoo {
 
     public int searchAnimal(Animal animal) {
         for (int i = 0; i < nbrAnimals; i++) {
-            if (animals[i].name.equals(animal.name)) {
+            if (animals[i].getName().equals(animal.getName())) {
                 return i;
             }
         }
@@ -54,7 +63,7 @@ public class Zoo {
     public boolean removeAnimal(Animal animal) {
         int index = searchAnimal(animal);
         if (index == -1) {
-            System.out.println(animal.name + " introuvable dans le zoo");
+            System.out.println(animal.getName() + " introuvable dans le zoo");
             return false;
         }
 
@@ -76,6 +85,26 @@ public class Zoo {
             return this;
         }
         return other;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            System.out.println("nom invalide, modification ignoree");
+        } else {
+            this.name = name;
+        }
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getNbrAnimals() {
