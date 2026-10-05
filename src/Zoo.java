@@ -1,29 +1,89 @@
-import java.util.Arrays;
-
 public class Zoo {
+
+    static final int MAX_CAGES = 25;
+
     Animal[] animals;
     String name;
     String city;
-    int nbrCages;
+    private int nbrAnimals;
 
-    public Zoo(Animal[] animals, String name, String city, int nbrCages) {
-        this.animals = animals;
+    public Zoo(String name, String city) {
         this.name = name;
         this.city = city;
-        this.nbrCages = nbrCages;
+        this.animals = new Animal[MAX_CAGES];
+        this.nbrAnimals = 0;
     }
-    public void displayZoo(){
-        System.out.println(name+" "+city+ " "+nbrCages);
+
+    public boolean addAnimal(Animal animal) {
+        if (nbrAnimals >= MAX_CAGES) {
+            System.out.println("Le zoo est plein, on peut pas ajouter " + animal.name);
+            return false;
+        }
+
+        // on verifie que l'animal n'est pas deja dans le zoo
+        if (searchAnimal(animal) != -1) {
+            System.out.println(animal.name + " est deja dans le zoo");
+            return false;
+        }
+
+        animals[nbrAnimals] = animal;
+        nbrAnimals++;
+        return true;
+    }
+
+    public void displayAnimals() {
+        System.out.println("Animaux dans le zoo " + name + " : " + nbrAnimals + "/" + MAX_CAGES);
+        if (nbrAnimals == 0) {
+            System.out.println("aucun animal pour l'instant");
+            return;
+        }
+        for (int i = 0; i < nbrAnimals; i++) {
+            System.out.println(i + " - " + animals[i]);
+        }
+    }
+
+    public int searchAnimal(Animal animal) {
+        for (int i = 0; i < nbrAnimals; i++) {
+            if (animals[i].name.equals(animal.name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean removeAnimal(Animal animal) {
+        int index = searchAnimal(animal);
+        if (index == -1) {
+            System.out.println(animal.name + " introuvable dans le zoo");
+            return false;
+        }
+
+        // on decale tout pour pas laisser de trou dans le tableau
+        for (int i = index; i < nbrAnimals - 1; i++) {
+            animals[i] = animals[i + 1];
+        }
+        animals[nbrAnimals - 1] = null;
+        nbrAnimals--;
+        return true;
+    }
+
+    public boolean isFull() {
+        return nbrAnimals >= MAX_CAGES;
+    }
+
+    public Zoo getBiggestZoo(Zoo other) {
+        if (this.nbrAnimals >= other.nbrAnimals) {
+            return this;
+        }
+        return other;
+    }
+
+    public int getNbrAnimals() {
+        return nbrAnimals;
     }
 
     @Override
     public String toString() {
-        return "Zoo{" +
-                "animals=" + Arrays.toString(animals) +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", nbrCages=" + nbrCages +
-                '}';
+        return name + " (" + city + ") - " + nbrAnimals + " animaux";
     }
-
 }
