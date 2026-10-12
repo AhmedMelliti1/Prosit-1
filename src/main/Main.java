@@ -1,12 +1,11 @@
 package main;
 
-import entities.Animal;
-import entities.Zoo;
+import entities.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        Zoo zoo1 = new Zoo("Safari Park", "Paris");
+        /*Zoo zoo1 = new Zoo("Safari Park", "Paris");
 
         Animal lion = new Animal("Felins", "Simba", 5, true);
         Animal tiger = new Animal("Felins", "Shere Khan", 4, true);
@@ -76,6 +75,12 @@ public class Main {
 
         Zoo zoo3 = new Zoo("Aqua Zoo", "Marseille");
         zoo3.addAnimal(new Animal("Poissons", "Nemo", 2, false));
-        System.out.println("le plus grand entre zoo1 et zoo3 : " + zoo1.getBiggestZoo(zoo3));
+        System.out.println("le plus grand entre zoo1 et zoo3 : " + zoo1.getBiggestZoo(zoo3));*/
+        Aquatic a=new Aquatic("Fish","Shark",5,false,"Ocean");
+        Dolphin d=new Dolphin("Cetacea","Flipper",3,true,"Sea",25.5f);
+        Penguin p=new Penguin("Bird","Pingu",2,false,"Iceberg",50.0f);
+        a.swim();
+        d.swim();
+        p.swim();
     }
 }
