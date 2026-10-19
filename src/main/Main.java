@@ -76,11 +76,18 @@ public class Main {
         Zoo zoo3 = new Zoo("Aqua Zoo", "Marseille");
         zoo3.addAnimal(new Animal("Poissons", "Nemo", 2, false));
         System.out.println("le plus grand entre zoo1 et zoo3 : " + zoo1.getBiggestZoo(zoo3));*/
-        Aquatic a=new Aquatic("Fish","Shark",5,false,"Ocean");
+        //Aquatic a=new Aquatic("Fish","Shark",5,false,"Ocean");
         Dolphin d=new Dolphin("Cetacea","Flipper",3,true,"Sea",25.5f);
         Penguin p=new Penguin("Bird","Pingu",2,false,"Iceberg",50.0f);
-        a.swim();
+        /*a.swim();
         d.swim();
-        p.swim();
+        p.swim();*/
+        Zoo zoo = new Zoo("Safari Park", "Paris");
+        //zoo.addAquaticAnimal(a);
+        zoo.addAquaticAnimal(d);
+        zoo.addAquaticAnimal(p);
+        for (int i=0; i<zoo.getNbraquatics();i++){
+            zoo.getAquaticAnimals()[i].swim();
+        }
     }
 }
